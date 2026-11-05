@@ -1,0 +1,440 @@
+{
+  "schema_version": 1,
+  "description": "Aggregate reported results used for ORBIT-Face README figures; no experiments were rerun.",
+  "sources": {
+    "original_direct": {
+      "filename": "ifrt_cross_ident_v2.json",
+      "sha256": "2d3b3c087d12996a539d11b5122bd953642e25011c7af3b127699375f2948f35"
+    },
+    "original_aligned": {
+      "filename": "ifrt_proc_mlp.json",
+      "sha256": "be40e97701b9e7d53f6bf07e60c5239bc35c550d4696032fc1f23e660a49f373"
+    },
+    "ifrt_calibration": {
+      "filename": "ifrt_fourway_ifrtcal_k3000_strictsplit.json",
+      "sha256": "2b2ebedff67a77cab8d5458717730e651027d18b6b2bb1b1b88cf53bcc65348a"
+    },
+    "lfw_calibration": {
+      "filename": "ifrt_fourway_lfwcal_k3000_strictsplit.json",
+      "sha256": "f9d952b70095ad82bb186ba4c60a9f7d94328e8b476df9663e05fec0891fce6b"
+    },
+    "tsne_figure": {
+      "filename": "tsne_alignment.pdf",
+      "sha256": "0a8195f0564cc4bdef55cfe6fb408084de87d8f3d0960f491fea335cc0489194"
+    }
+  },
+  "original_identification": {
+    "protocol": {
+      "benchmark": "Original derived IFRT-MR identification split",
+      "n_probes": 10000,
+      "n_gallery": 1614305,
+      "training_corpus": "WebFace12M",
+      "calibration_k": 5000,
+      "metrics_unit": "fraction",
+      "calibration_note": "The manuscript describes in-domain calibration. These archived result JSONs do not contain calibration/probe manifests or hashes, so calibration identity exclusion and cross-file split equivalence cannot be independently verified from them.",
+      "baseline_note": "Old-old and direct come from calibration-independent direct fields in the original_direct file; its K=2000 aligned fields are not used. Both aligned methods use original_aligned with K=5000.",
+      "reference_note": "Old-old is the legacy reference, not a new-new/full-backfill result."
+    },
+    "plot_indices": [
+      0,
+      2,
+      4,
+      5
+    ],
+    "rows": [
+      {
+        "label": "R100 (CosFace), seed 1 → 2",
+        "plot_label": "R100: seed 1 → 2",
+        "old_model": "wf12m_r100_cosface_seed1",
+        "new_model": "wf12m_r100_cosface_seed2",
+        "metrics": {
+          "old_old": {
+            "rank_1": 0.9927,
+            "rank_5": 0.9978
+          },
+          "direct": {
+            "rank_1": 0.0,
+            "rank_5": 0.0
+          },
+          "procrustes": {
+            "rank_1": 0.9923,
+            "rank_5": 0.9976
+          },
+          "procrustes_mlp": {
+            "rank_1": 0.992,
+            "rank_5": 0.9975
+          }
+        },
+        "source_records": {
+          "old_old": {
+            "source": "original_direct",
+            "evaluation_index": 0,
+            "field": "direct"
+          },
+          "direct": {
+            "source": "original_direct",
+            "evaluation_index": 3,
+            "field": "direct"
+          },
+          "procrustes": {
+            "source": "original_aligned",
+            "evaluation_index": 0,
+            "field": "procrustes"
+          },
+          "procrustes_mlp": {
+            "source": "original_aligned",
+            "evaluation_index": 0,
+            "field": "proc_mlp"
+          }
+        }
+      },
+      {
+        "label": "ViT-B (CosFace), seed 1 → 2",
+        "plot_label": "ViT-B: seed 1 → 2",
+        "old_model": "wf12m_vit_b_cosface_seed1",
+        "new_model": "wf12m_vit_b_cosface_seed2",
+        "metrics": {
+          "old_old": {
+            "rank_1": 0.9894,
+            "rank_5": 0.9967
+          },
+          "direct": {
+            "rank_1": 0.0,
+            "rank_5": 0.0
+          },
+          "procrustes": {
+            "rank_1": 0.9895,
+            "rank_5": 0.9959
+          },
+          "procrustes_mlp": {
+            "rank_1": 0.989,
+            "rank_5": 0.9961
+          }
+        },
+        "source_records": {
+          "old_old": {
+            "source": "original_direct",
+            "evaluation_index": 1,
+            "field": "direct"
+          },
+          "direct": {
+            "source": "original_direct",
+            "evaluation_index": 4,
+            "field": "direct"
+          },
+          "procrustes": {
+            "source": "original_aligned",
+            "evaluation_index": 1,
+            "field": "procrustes"
+          },
+          "procrustes_mlp": {
+            "source": "original_aligned",
+            "evaluation_index": 1,
+            "field": "proc_mlp"
+          }
+        }
+      },
+      {
+        "label": "R100, CosFace → ArcFace",
+        "plot_label": "R100: CosFace → ArcFace",
+        "old_model": "wf12m_r100_cosface_seed1",
+        "new_model": "wf12m_r100_arcface_seed1",
+        "metrics": {
+          "old_old": {
+            "rank_1": 0.9927,
+            "rank_5": 0.9978
+          },
+          "direct": {
+            "rank_1": 0.8643,
+            "rank_5": 0.9232
+          },
+          "procrustes": {
+            "rank_1": 0.9918,
+            "rank_5": 0.9972
+          },
+          "procrustes_mlp": {
+            "rank_1": 0.9915,
+            "rank_5": 0.997
+          }
+        },
+        "source_records": {
+          "old_old": {
+            "source": "original_direct",
+            "evaluation_index": 0,
+            "field": "direct"
+          },
+          "direct": {
+            "source": "original_direct",
+            "evaluation_index": 6,
+            "field": "direct"
+          },
+          "procrustes": {
+            "source": "original_aligned",
+            "evaluation_index": 2,
+            "field": "procrustes"
+          },
+          "procrustes_mlp": {
+            "source": "original_aligned",
+            "evaluation_index": 2,
+            "field": "proc_mlp"
+          }
+        }
+      },
+      {
+        "label": "ViT-B, CosFace → ArcFace",
+        "plot_label": "ViT-B: CosFace → ArcFace",
+        "old_model": "wf12m_vit_b_cosface_seed1",
+        "new_model": "wf12m_vit_b_arcface_seed1",
+        "metrics": {
+          "old_old": {
+            "rank_1": 0.9894,
+            "rank_5": 0.9967
+          },
+          "direct": {
+            "rank_1": 0.9581,
+            "rank_5": 0.9825
+          },
+          "procrustes": {
+            "rank_1": 0.9893,
+            "rank_5": 0.9962
+          },
+          "procrustes_mlp": {
+            "rank_1": 0.9889,
+            "rank_5": 0.9955
+          }
+        },
+        "source_records": {
+          "old_old": {
+            "source": "original_direct",
+            "evaluation_index": 1,
+            "field": "direct"
+          },
+          "direct": {
+            "source": "original_direct",
+            "evaluation_index": 7,
+            "field": "direct"
+          },
+          "procrustes": {
+            "source": "original_aligned",
+            "evaluation_index": 3,
+            "field": "procrustes"
+          },
+          "procrustes_mlp": {
+            "source": "original_aligned",
+            "evaluation_index": 3,
+            "field": "proc_mlp"
+          }
+        }
+      },
+      {
+        "label": "R50 → R100 (CosFace)",
+        "plot_label": "R50 → R100",
+        "old_model": "wf12m_r50_cosface_seed1",
+        "new_model": "wf12m_r100_cosface_seed1",
+        "metrics": {
+          "old_old": {
+            "rank_1": 0.9895,
+            "rank_5": 0.996
+          },
+          "direct": {
+            "rank_1": 0.0,
+            "rank_5": 0.0
+          },
+          "procrustes": {
+            "rank_1": 0.991,
+            "rank_5": 0.997
+          },
+          "procrustes_mlp": {
+            "rank_1": 0.9905,
+            "rank_5": 0.9968
+          }
+        },
+        "source_records": {
+          "old_old": {
+            "source": "original_direct",
+            "evaluation_index": 2,
+            "field": "direct"
+          },
+          "direct": {
+            "source": "original_direct",
+            "evaluation_index": 8,
+            "field": "direct"
+          },
+          "procrustes": {
+            "source": "original_aligned",
+            "evaluation_index": 4,
+            "field": "procrustes"
+          },
+          "procrustes_mlp": {
+            "source": "original_aligned",
+            "evaluation_index": 4,
+            "field": "proc_mlp"
+          }
+        }
+      },
+      {
+        "label": "R100 → ViT-B (CosFace)",
+        "plot_label": "R100 → ViT-B",
+        "old_model": "wf12m_r100_cosface_seed1",
+        "new_model": "wf12m_vit_b_cosface_seed1",
+        "metrics": {
+          "old_old": {
+            "rank_1": 0.9927,
+            "rank_5": 0.9978
+          },
+          "direct": {
+            "rank_1": 0.0,
+            "rank_5": 0.0001
+          },
+          "procrustes": {
+            "rank_1": 0.9629,
+            "rank_5": 0.9829
+          },
+          "procrustes_mlp": {
+            "rank_1": 0.9801,
+            "rank_5": 0.9923
+          }
+        },
+        "source_records": {
+          "old_old": {
+            "source": "original_direct",
+            "evaluation_index": 0,
+            "field": "direct"
+          },
+          "direct": {
+            "source": "original_direct",
+            "evaluation_index": 9,
+            "field": "direct"
+          },
+          "procrustes": {
+            "source": "original_aligned",
+            "evaluation_index": 5,
+            "field": "procrustes"
+          },
+          "procrustes_mlp": {
+            "source": "original_aligned",
+            "evaluation_index": 5,
+            "field": "proc_mlp"
+          }
+        }
+      },
+      {
+        "label": "R50 → ViT-B (CosFace)",
+        "plot_label": "R50 → ViT-B",
+        "old_model": "wf12m_r50_cosface_seed1",
+        "new_model": "wf12m_vit_b_cosface_seed1",
+        "metrics": {
+          "old_old": {
+            "rank_1": 0.9895,
+            "rank_5": 0.996
+          },
+          "direct": {
+            "rank_1": 0.0,
+            "rank_5": 0.0
+          },
+          "procrustes": {
+            "rank_1": 0.9643,
+            "rank_5": 0.9848
+          },
+          "procrustes_mlp": {
+            "rank_1": 0.9797,
+            "rank_5": 0.9926
+          }
+        },
+        "source_records": {
+          "old_old": {
+            "source": "original_direct",
+            "evaluation_index": 2,
+            "field": "direct"
+          },
+          "direct": {
+            "source": "original_direct",
+            "evaluation_index": 10,
+            "field": "direct"
+          },
+          "procrustes": {
+            "source": "original_aligned",
+            "evaluation_index": 6,
+            "field": "procrustes"
+          },
+          "procrustes_mlp": {
+            "source": "original_aligned",
+            "evaluation_index": 6,
+            "field": "proc_mlp"
+          }
+        }
+      }
+    ]
+  },
+  "calibration_transfer": {
+    "protocol": {
+      "n_probes": 10000,
+      "n_gallery": 1594196,
+      "seed": 20260724,
+      "unique_probe_identities": 10000,
+      "reserved_ifrt_identity_count": 3000,
+      "reserved_ifrt_images_excluded_from_gallery": 20109,
+      "probe_indices_sha256": "4503bbd5ac37f85e4f7374888348bc82f2dbd6ba075403da4926e58b539d2151",
+      "reserved_ifrt_identities_sha256": "aafb00e3bcc631a6f3ced11886ef2038e96a3d4723af4af5f5ef911787e32c57",
+      "single_view": true,
+      "flip_augmentation": false,
+      "benchmark": "Controlled derived IFRT-MR identification split",
+      "calibration_k": 3000,
+      "old_model": "MS1MV2-R100-ArcFace",
+      "new_model": "WebFace12M-R100-ArcFace-seed1",
+      "calibration_identity_labels": "Used for split construction only, not for fitting the adapter."
+    },
+    "rows": [
+      {
+        "key": "old_old",
+        "label": "Old-old",
+        "metrics": {
+          "rank_1": 0.9718,
+          "rank_5": 0.9863
+        },
+        "source": "ifrt_calibration",
+        "field": "results.old_old"
+      },
+      {
+        "key": "direct",
+        "label": "Direct new-old",
+        "metrics": {
+          "rank_1": 0.0,
+          "rank_5": 0.0
+        },
+        "source": "ifrt_calibration",
+        "field": "results.direct_old_new"
+      },
+      {
+        "key": "lfw",
+        "label": "Procrustes: external LFW",
+        "metrics": {
+          "rank_1": 0.8964,
+          "rank_5": 0.936
+        },
+        "source": "lfw_calibration",
+        "field": "results.procrustes_old_new"
+      },
+      {
+        "key": "ifrt",
+        "label": "Procrustes: disjoint IFRT",
+        "metrics": {
+          "rank_1": 0.9729,
+          "rank_5": 0.988
+        },
+        "source": "ifrt_calibration",
+        "field": "results.procrustes_old_new"
+      },
+      {
+        "key": "new_new",
+        "label": "New-new / full backfill",
+        "metrics": {
+          "rank_1": 0.9912,
+          "rank_5": 0.9966
+        },
+        "source": "ifrt_calibration",
+        "field": "results.new_new"
+      }
+    ]
+  }
+}

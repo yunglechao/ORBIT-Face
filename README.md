@@ -9,7 +9,7 @@ Code companion to **Representation Rigidity in Face Embeddings: Orthogonal Ident
 **Yongle Zhao · Zhichao Chen · Yin Xie · Jun Wang · Ziyong Feng**  
 **DeepGlint · NeurIPS 2026**
 
-[Paper](https://openreview.net/forum?id=alci29b9Vd) · [Why ORBIT?](#why-orbit) · [How it works](#how-it-works) · [Minimal example](#minimal-example) · [Citation](#citation)
+[Paper](https://openreview.net/forum?id=alci29b9Vd) · [Why ORBIT?](#why-orbit) · [Results](#experimental-highlights) · [How it works](#how-it-works) · [Minimal example](#minimal-example) · [Citation](#citation)
 
 ## Why ORBIT?
 
@@ -35,6 +35,60 @@ ORBIT-Face studies a different deployment path:
 The base adapter requires paired embeddings, but no identity labels, classifier weights, training-set access, or gallery embeddings for fitting. The pairing comes from encoding the **same images**, in the same order, with the two models.
 
 The research contribution is the characterization of face-embedding rigidity, its connection to compatibility, and its operating boundaries. The adapter uses classical orthogonal Procrustes alignment.
+
+## Experimental highlights
+
+The figures below use existing paper artifacts. The quantitative charts and tables are generated from [archived aggregate metrics](assets/data/experiment_results.json); no experiments were rerun to produce them. [Source and protocol notes](assets/README.md) document the original artifacts and their reproducibility limits.
+
+### Different coordinates, improved correspondence
+
+![Paper t-SNE visualization of R100 and ViT-B embeddings before and after Procrustes alignment.](assets/figures/tsne_alignment.png)
+
+**The orbit intuition in a picture.** Circles represent R100 embeddings, triangles represent ViT-B embeddings, and colors indicate identities. After alignment, the two models show improved visual correspondence. This is a qualitative t-SNE projection; it does not imply exact high-dimensional alignment or eliminate the cross-architecture retrieval gap.
+
+### Keeping a million-scale gallery in place
+
+![Rank-1 and Rank-5 for representative seed, loss, depth, and architecture upgrades on the original derived IFRT-MR identification split.](assets/figures/ifrt_identification.svg)
+
+**Protocol:** the paper's original derived IFRT-MR identification split, with **1,614,305 gallery images**, **10,000 probes**, and **K = 5,000** for both aligned methods. Models are trained on WebFace12M. Entries below are **Rank-1 / Rank-5 (%)**, with the upgrade direction shown as old → new.
+
+<!-- BEGIN IFRT_TABLE -->
+
+| Upgrade | Old-old | Direct | Procrustes | Procrustes + MLP |
+|---|---:|---:|---:|---:|
+| R100 (CosFace), seed 1 → 2 | 99.27 / 99.78 | 0.00 / 0.00 | 99.23 / 99.76 | 99.20 / 99.75 |
+| ViT-B (CosFace), seed 1 → 2 | 98.94 / 99.67 | 0.00 / 0.00 | 98.95 / 99.59 | 98.90 / 99.61 |
+| R100, CosFace → ArcFace | 99.27 / 99.78 | 86.43 / 92.32 | 99.18 / 99.72 | 99.15 / 99.70 |
+| ViT-B, CosFace → ArcFace | 98.94 / 99.67 | 95.81 / 98.25 | 98.93 / 99.62 | 98.89 / 99.55 |
+| R50 → R100 (CosFace) | 98.95 / 99.60 | 0.00 / 0.00 | 99.10 / 99.70 | 99.05 / 99.68 |
+| R100 → ViT-B (CosFace) | 99.27 / 99.78 | 0.00 / 0.01 | 96.29 / 98.29 | 98.01 / 99.23 |
+| R50 → ViT-B (CosFace) | 98.95 / 99.60 | 0.00 / 0.00 | 96.43 / 98.48 | 97.97 / 99.26 |
+
+<!-- END IFRT_TABLE -->
+
+Same-family alignment approaches the old-old reference, while CNN → ViT remains harder. A fitted residual MLP narrows that gap but does not consistently improve the easier upgrades. **Old-old is the legacy reference, not the full-backfill result.** These are the reported paper-table results; the archived files do not retain the original calibration/split manifests, as detailed in the [source notes](assets/README.md#original-large-gallery-table).
+
+### Calibration must represent deployment
+
+![Rank-1 and Rank-5 for the same cross-corpus upgrade using external LFW or identity-disjoint IFRT calibration, with old-old, direct, and full-backfill references.](assets/figures/calibration_transfer.svg)
+
+**Upgrade:** MS1MV2-R100-ArcFace → WebFace12M-R100-ArcFace (seed 1). Both calibration choices use **K = 3,000** and the same **10,000 probes** and **1,594,196-image gallery**, with single-view features. All reserved IFRT calibration identities are excluded from the gallery and probes. This controlled split differs from the original table above.
+
+<!-- BEGIN CALIBRATION_TABLE -->
+
+| Configuration | Rank-1 (%) | Rank-5 (%) |
+|---|---:|---:|
+| Old-old | 97.18 | 98.63 |
+| Direct new-old | 0.00 | 0.00 |
+| Procrustes: external LFW | 89.64 | 93.60 |
+| Procrustes: disjoint IFRT | 97.29 | 98.80 |
+| New-new / full backfill | 99.12 | 99.66 |
+
+<!-- END CALIBRATION_TABLE -->
+
+Representative calibration restores compatibility more effectively than external LFW calibration in this experiment. The aligned model still falls short of new-new/full backfill, so recovering compatibility should not be read as recovering the full new-model gain. This comparison was added in the rebuttal/camera-ready evaluations.
+
+To regenerate the quantitative plots and tables, see [figure generation](assets/README.md#regenerate-the-charts-and-tables).
 
 ## How it works
 
