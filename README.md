@@ -122,12 +122,12 @@ $$
 \widehat Q = UV^\top.
 $$
 
-At inference, transport a new query embedding $y_q$ and compare it with the stored old gallery $G_{\mathrm{old}}$:
+At inference, transport a new query embedding $y_q$ and compute its score vector $s_q$ against the stored old gallery $G_{\mathrm{old}}$:
 
 $$
 \widetilde y_q = y_q\widehat Q,
 \qquad
-\operatorname{scores}(q)=\widetilde y_q G_{\mathrm{old}}^\top.
+s_q=\widetilde y_q G_{\mathrm{old}}^\top.
 $$
 
 For unit-normalized embeddings, these dot products are cosine similarities. In an indexed system, pass the mapped query to the existing search index instead of constructing the full score vector.
